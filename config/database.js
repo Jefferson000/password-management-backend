@@ -1,10 +1,14 @@
 const { createPool } = require("mysql");
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const databaseConfig = createPool({
-  host: "aws.connect.psdb.cloud",
-  port: "3306",
-  user: "a1w2ftb7trfyss50wlce",
-  password: "pscale_pw_MTt4QgB728c6jVcszP0Zn3U9LSpCeT3IxYFB6CWVaRU",
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
   database: "password_management",
   connectionLimit: 10,
   ssl: { rejectUnauthorized: true },

@@ -2,12 +2,16 @@
 var app = require("./app");
 var debug = require("debug")("sgabackend:server");
 var http = require("http");
-var config = require("./config/envconfig");
+
+
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
 
 /**
  * Used port from env
  */
-const PORT = process.env.PORT || config.server.port;
+const PORT = process.env.PORT;
 
 /**
  * Set por to express
@@ -17,7 +21,7 @@ app.set("port", PORT);
 /**
  * bind
  */
-const BIND = `Port ${process.env.PORT || config.server.port}`;
+const BIND = `Port ${PORT}`;
 
 /**
  * Create HTTP server.
