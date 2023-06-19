@@ -1,7 +1,7 @@
 var express = require("express");
 //var HttpStatus = require('http-status-codes');
 const passwordController = require("../controllers/password");
-const middleware = require("../midleware/midleware");
+const middleware = require("../common/midleware");
 const constants = require('../config/constants');
 
 var router = express.Router();

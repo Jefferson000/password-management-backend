@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const cors = require('cors');
 
 // logger
-const logger = require("./config/logger");
+const logger = require("./common/logger");
 
 //Routes:
 var indexRouter = require("./routes/index");
@@ -24,6 +24,7 @@ app.use(bodyParser.json());
 // Error handling middleware
 app.use((err, req, res, next) => {
   // Set an appropriate status code based on the error
+  console.log("Err in general error midleware");
   const statusCode = err.status || 500;
 
   // Set the response body
@@ -36,6 +37,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).json(responseBody);
   logger.error(responseBody.message);
 });
+
 
 //Routes
 app.use("/", indexRouter);

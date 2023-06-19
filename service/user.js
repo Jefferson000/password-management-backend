@@ -1,10 +1,12 @@
+const { errorHandler } = require("../common/errorHandler");
 const pool = require("../config/database");
 
 module.exports.getUsers = () => {
   return new Promise(function (resolve, reject) {
-    pool.query("SELECT * from password_management.user;", (err, res) => {
+    pool.query("CALL get_users()", (err, res) => {
       if (err) {
-        reject(err);
+        reject(errorHandler(err));
+        return;
       }
       resolve(res[0]);
     });
@@ -17,9 +19,11 @@ module.exports.createUser = (data) => {
       `CALL create_user('${data.username}', '${data.email}', '${data.password}');`,
       (err, res) => {
         if (err) {
-          reject(err);
+          reject(errorHandler(err));
+          return;
         }
         resolve(res[0]);
+        return;
       }
     );
   });
