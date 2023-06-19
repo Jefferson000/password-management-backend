@@ -6,7 +6,7 @@ module.exports.getUsers = () => {
       if (err) {
         reject(err);
       }
-      resolve(res);
+      resolve(res[0]);
     });
   });
 };
@@ -19,7 +19,7 @@ module.exports.createUser = (data) => {
         if (err) {
           reject(err);
         }
-        resolve(res);
+        resolve(res[0]);
       }
     );
   });

@@ -4,9 +4,9 @@ module.exports.getPasswords = (user_id) => {
   return new Promise(function (resolve, reject) {
     pool.query(`CALL get_user_passwords(${user_id})`, (err, res) => {
       if (err) {
-        reject(err);
+        reject(err); //TODO Manage errors from db
       }
-      resolve(res);
+      resolve(res[0]);
     });
   });
 };

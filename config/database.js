@@ -13,4 +13,5 @@ const databaseConfig = createPool({
   connectionLimit: 10
 });
 
+
 module.exports = databaseConfig;

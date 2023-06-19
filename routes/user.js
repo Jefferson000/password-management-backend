@@ -1,7 +1,20 @@
 const express = require("express");
 const userController = require("../controllers/user");
 const router = express.Router();
+const middleware = require("../midleware/midleware");
+const constants = require('../config/constants');
+
 
 router.get("/", userController.getUsers);
-router.post("/", userController.createUser);
+
+router.post(
+  "/",
+  middleware.validateRequest(
+    ["username", "email", "password"],
+    constants.IS_BODY_REQ
+  ),
+  userController.createUser
+);
+
+
 module.exports = router;
