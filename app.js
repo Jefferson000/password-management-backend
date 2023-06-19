@@ -1,6 +1,7 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var morgan = require("morgan");
+const express = require("express");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const cors = require('cors');
 
 // logger
 const logger = require("./config/logger");
@@ -9,15 +10,16 @@ const logger = require("./config/logger");
 var indexRouter = require("./routes/index");
 var passwordRouter = require("./routes/password");
 var userRouter = require("./routes/user");
-// var authController = require('./routes/auth')
 
 const app = express();
 
-// Middleware
+// app configs
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 
 // Error handling middleware
 app.use((err, req, res, next) => {

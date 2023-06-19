@@ -10,8 +10,7 @@ const databaseConfig = createPool({
   user: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: "password_management",
-  connectionLimit: 10,
-  ssl: { rejectUnauthorized: true },
+  connectionLimit: 10
 });
 
 module.exports = databaseConfig;

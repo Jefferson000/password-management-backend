@@ -4,5 +4,5 @@ const passwordController = require("../controllers/password");
 
 var router = express.Router();
 
-router.get("/", passwordController.createPassword);
+router.get("/", passwordController.getPasswords);
 module.exports = router;
