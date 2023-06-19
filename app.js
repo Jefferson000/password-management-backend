@@ -10,6 +10,7 @@ const logger = require("./common/logger");
 var indexRouter = require("./routes/index");
 var passwordRouter = require("./routes/password");
 var userRouter = require("./routes/user");
+var authRouter = require("./routes/auth");
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use((err, req, res, next) => {
 app.use("/", indexRouter);
 app.use("/password", passwordRouter);
 app.use("/user", userRouter);
+app.use("/auth", authRouter);
 //app.use('/auth',authController);
 //app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 module.exports = app;

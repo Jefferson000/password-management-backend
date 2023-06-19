@@ -1,13 +1,14 @@
-const { getPasswords } = require("../service/password");
+const { auth } = require("../service/auth");
 const HttpStatus = require("http-status-codes");
 
-module.exports.getPasswords = (req, res) => {
-  getPasswords(req.query).then(
+module.exports.auth = (req, res) => {
+  auth(req.query).then(
     (result) => {
-      res.status(result.length === 0 ? HttpStatus.StatusCodes.NO_CONTENT : HttpStatus.StatusCodes.OK)
+      res.status(HttpStatus.StatusCodes.OK)
         .json({ response: result });
     },
     (error) => {
+        console.log(error)
       res.status(error.status || HttpStatus.StatusCodes.INTERNAL_SERVER_ERROR)
         .json({ error: error.message });
     }
