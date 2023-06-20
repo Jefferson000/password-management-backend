@@ -5,7 +5,7 @@ const middleware = require("../common/midleware");
 const constants = require('../config/constants');
 
 
-router.get("/", userController.getUsers);
+router.get("/", middleware.validateToken, userController.getUsers);
 
 router.post(
   "/",

@@ -9,6 +9,7 @@ var router = express.Router();
 router.get(
   "/",
   middleware.validateRequest(["user_id"], !constants.IS_BODY_REQ),
+  middleware.validateToken,
   passwordController.getPasswords
 );
 
