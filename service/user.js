@@ -43,8 +43,6 @@ module.exports.editUser = (userId, data) => {
   const salt = bcrypt.genSaltSync(saltRounds);
   const hashedPassword = bcrypt.hashSync(password, salt);
 
-  console.log(data)
-  console.log(userId)
   return new Promise(function (resolve, reject) {
     pool.query(
       `CALL edit_user(${userId}, '${username}', '${email}', '${hashedPassword}');`,

@@ -15,7 +15,7 @@ exports.validateRequest = (fields, bodyRequired) => {
       for (const field of fields) {
         if (!request[field] && request[field] != 0) {
           return res.status(HttpStatus.StatusCodes.BAD_REQUEST)
-            .json({ err: { code: `Missign param '${field}'` } });
+            .json({ err: { code: `Missign ${bodyRequired ? 'body' : 'query'} field '${field}'` } });
         }
       }
       return next();
@@ -30,9 +30,17 @@ exports.validateToken = (req, res, next) => {
     return res.status(HttpStatus.StatusCodes.UNAUTHORIZED).json({ error: 'No token provided' });
   }
   try {
-    jwt.verify(token, 'secretKey');
+    const decodedToken = jwt.verify(token, 'secretKey');
+    if (isTokenExpired(decodedToken)) {
+      return res.status(HttpStatus.StatusCodes.UNAUTHORIZED).json({ error: 'Token expired' });
+    }
     next();
   } catch (error) {
     return res.status(HttpStatus.StatusCodes.UNAUTHORIZED).json({ error: 'Invalid token' });
   }
 };
+
+function isTokenExpired(decodedToken) {
+  const currentTimestamp = Math.floor(Date.now() / 1000);
+  return decodedToken.exp < currentTimestamp;
+}

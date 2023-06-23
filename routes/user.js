@@ -1,11 +1,9 @@
 const express = require("express");
 const userController = require("../controllers/user");
+const passwordController = require("../controllers/password");
 const router = express.Router();
-const middleware = require("../common/midleware");
+const middleware = require("../common/middleware");
 const constants = require('../config/constants');
-
-
-router.get("/", middleware.validateToken, userController.getUsers);
 
 router.post(
   "/",
@@ -14,12 +12,16 @@ router.post(
 );
 
 router.put(
-  "/",
+  "/:user_id",
   middleware.validateRequest(["username", "email", "password"], constants.IS_BODY_REQ),
-  middleware.validateRequest(["user_id"], !constants.IS_BODY_REQ),
+  middleware.validateToken,
   userController.editUser
 );
 
-
+router.get(
+  "/:user_id/password",
+  middleware.validateToken,
+  passwordController.getPasswords
+);
 
 module.exports = router;

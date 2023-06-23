@@ -2,7 +2,8 @@ const { getPasswords } = require("../service/password");
 const HttpStatus = require("http-status-codes");
 
 module.exports.getPasswords = (req, res) => {
-  getPasswords(req.query).then(
+  const userId = req.params.user_id;
+  getPasswords(userId).then(
     (result) => {
       res.status(result.length === 0 ? HttpStatus.StatusCodes.NO_CONTENT : HttpStatus.StatusCodes.OK)
         .json({ response: result });

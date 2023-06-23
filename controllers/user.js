@@ -28,7 +28,7 @@ module.exports.createUser = (req, res) => {
 };
 
 module.exports.editUser = (req, res) => {
-  const userId = req.query.user_id;
+  const userId = req.params.user_id;
   editUser(userId, req.body).then(
     (result) => {
       res.status(HttpStatus.StatusCodes.OK).json({ response: result });
