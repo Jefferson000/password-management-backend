@@ -1,4 +1,4 @@
-const { getUsers, createUser } = require("../service/user");
+const { getUsers, createUser, editUser } = require("../service/user");
 const HttpStatus = require("http-status-codes");
 
 module.exports.getUsers = (req, res) => {
@@ -19,6 +19,19 @@ module.exports.createUser = (req, res) => {
     (result) => {
       res.status(HttpStatus.StatusCodes.CREATED)
       .json({ response: result });
+    },
+    (error) => {
+      res.status(error.status || HttpStatus.StatusCodes.INTERNAL_SERVER_ERROR)
+        .json({ error: error.message });
+    }
+  );
+};
+
+module.exports.editUser = (req, res) => {
+  const userId = req.query.user_id;
+  editUser(userId, req.body).then(
+    (result) => {
+      res.status(HttpStatus.StatusCodes.OK).json({ response: result });
     },
     (error) => {
       res.status(error.status || HttpStatus.StatusCodes.INTERNAL_SERVER_ERROR)

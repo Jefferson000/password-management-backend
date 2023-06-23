@@ -1,7 +1,7 @@
 const { errorHandler } = require("../common/errorHandler");
 const pool = require("../config/database");
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 module.exports.auth = (params) => {
   const password = params.password;
@@ -23,8 +23,10 @@ module.exports.auth = (params) => {
         }
 
         delete user.password;
-        const token = jwt.sign({ user_id: user.user_id, username: user.username }, 'secretKey', { expiresIn: '1h' });
-        user.token = token;
+        const secondsToExpire = 5; //minutes
+        const tokenLifeTime = new Date().getTime() + (secondsToExpire * 1000 * 60);
+        const tokenValue = jwt.sign({ user_id: user.user_id, username: user.username }, "secretKey", { expiresIn: `${tokenLifeTime}ms` });
+        user.token = { value: tokenValue, expiresIn:  tokenLifeTime};
         resolve(user);
       }
     );

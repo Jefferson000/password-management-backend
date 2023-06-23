@@ -13,5 +13,13 @@ router.post(
   userController.createUser
 );
 
+router.put(
+  "/",
+  middleware.validateRequest(["username", "email", "password"], constants.IS_BODY_REQ),
+  middleware.validateRequest(["user_id"], !constants.IS_BODY_REQ),
+  userController.editUser
+);
+
+
 
 module.exports = router;
